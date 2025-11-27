@@ -2,59 +2,71 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Gestion des étudiants - Advanced Web Programming</title>
-<link rel="stylesheet" href="styles.css">
+<title>Système de gestion des étudiants</title>
+<link rel="stylesheet" href="index.css">
 </head>
 <body>
 
+<!-- Navbar -->
 <nav class="navbar">
   <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Attendance List</a></li>
-    <li><a href="#">Add Student</a></li>
-    <li><a href="#">Reports</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="list_students.php">Liste Étudiants</a></li>
+    <li><a href="add_student.php">Ajouter Étudiant</a></li>
+    <li><a href="take_attendance.php">Présence</a></li>
     <li><a href="#">Logout</a></li>
   </ul>
 </nav>
 
-<h2>Tableau de Présence</h2>
+<h2>Tableau de présence</h2>
 <table id="attendanceTable">
-  <thead>
-    <tr>
-      <th>Student ID</th>
-      <th>Last Name & First Name</th>
-      <th>Course</th>
-      <th>S1</th><th>P1</th>
-      <th>S2</th><th>P2</th>
-      <th>S3</th><th>P3</th>
-      <th>S4</th><th>P4</th>
-      <th>S5</th><th>P5</th>
-      <th>S6</th><th>P6</th>
-      <th>Absences</th>
-      <th>Participation</th>
-      <th>Message</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
+<thead>
+<tr>
+<th>ID</th>
+<th>Nom</th>
+<th>Groupe</th>
+<th>Présent</th>
+<th>Participation</th>
+<th>Message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1001</td>
+<td>Sara Ahmed</td>
+<td>3A</td>
+<td><input type="checkbox" class="present"></td>
+<td><input type="checkbox" class="participation"></td>
+<td contenteditable="true"></td>
+</tr>
+<tr>
+<td>1002</td>
+<td>Yacine Ali</td>
+<td>3A</td>
+<td><input type="checkbox" class="present"></td>
+<td><input type="checkbox" class="participation"></td>
+<td contenteditable="true"></td>
+</tr>
+<tr>
+<td>1003</td>
+<td>Rania Ben</td>
+<td>3B</td>
+<td><input type="checkbox" class="present"></td>
+<td><input type="checkbox" class="participation"></td>
+<td contenteditable="true"></td>
+</tr>
+</tbody>
 </table>
+<button onclick="updateMessages()">Mettre à jour Messages</button>
 
-<button onclick="updateTable()">Mettre à jour Messages</button>
 <hr>
 
 <h2>Ajouter un étudiant</h2>
-<form id="studentForm" onsubmit="return addStudent(event)">
-  <label>Student ID: <input type="text" id="studentID"></label>
-  <div id="idError" class="error"></div><br>
-  <label>Last Name: <input type="text" id="lastName"></label>
-  <div id="lastNameError" class="error"></div><br>
-  <label>First Name: <input type="text" id="firstName"></label>
-  <div id="firstNameError" class="error"></div><br>
-  <label>Email: <input type="email" id="email"></label>
-  <div id="emailError" class="error"></div><br>
-  <label>Course: <input type="text" id="course"></label>
-  <div id="courseError" class="error"></div><br>
-  <button type="submit">Ajouter l’étudiant</button>
+<form id="studentForm" onsubmit="addStudent(event)">
+ID: <input type="text" id="studentID" required><br>
+Nom: <input type="text" id="studentName" required><br>
+Groupe: <input type="text" id="studentGroup" required><br>
+<button type="submit">Ajouter</button>
 </form>
 
 <script src="script.js"></script>
