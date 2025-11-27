@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Gestion des étudiants</title>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Attendance List</a></li>
+    <li><a href="#">Add Student</a></li>
+    <li><a href="#">Reports</a></li>
+    <li><a href="#">Logout</a></li>
+  </ul>
+</nav>
+
+<h2>Tableau de Présence</h2>
+<table id="attendanceTable">
+  <thead>
+    <tr>
+      <th>Student ID</th>
+      <th>Last Name & First Name</th>
+      <th>Course</th>
+      <th>Present</th>
+      <th>Participation</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1001</td>
+      <td>Sara Ahmed</td>
+      <td>Advanced Web Programming</td>
+      <td><input type="checkbox" class="present"></td>
+      <td><input type="checkbox" class="participation"></td>
+      <td contenteditable="true"></td>
+    </tr>
+    <tr>
+      <td>1002</td>
+      <td>Yacine Ali</td>
+      <td>Advanced Web Programming</td>
+      <td><input type="checkbox" class="present"></td>
+      <td><input type="checkbox" class="participation"></td>
+      <td contenteditable="true"></td>
+    </tr>
+  </tbody>
+</table>
+
+<button onclick="updateMessages()">Mettre à jour Messages</button>
+
+<hr>
+
+<h2>Ajouter un étudiant</h2>
+<form id="studentForm" onsubmit="return addStudent(event)">
+  <label>Student ID: <input type="text" id="studentID"></label>
+  <div id="idError" class="error"></div>
+  <br>
+  <label>Last Name: <input type="text" id="lastName"></label>
+  <div id="lastNameError" class="error"></div>
+  <br>
+  <label>First Name: <input type="text" id="firstName"></label>
+  <div id="firstNameError" class="error"></div>
+  <br>
+  <label>Course: <input type="text" id="course"></label>
+  <div id="courseError" class="error"></div>
+  <br>
+  <button type="submit">Ajouter l’étudiant</button>
+</form>
+
+<script>
+function addStudent(event) {
+  event.preventDefault();
+
+  const studentID = document.getElementById("studentID").value.trim();
+  const lastName = document.getElementById("lastName").value.trim();
+  const firstName = document.getElementById("firstName").value.trim();
+  const course = document.getElementById("course").value.trim();
+
+  let valid = true;
+  document.getElementById("idError").textContent = "";
+  document.getElementById("lastNameError").textContent = "";
+  document.getElementById("firstNameError").textContent = "";
+  document.getElementById("courseError").textContent = "";
+
+  if (!studentID || !/^\d+$/.test(studentID)) {
+    document.getElementById("idError").textContent = "Student ID doit être un nombre.";
+    valid = false;
+  }
+  if (!lastName || !/^[A-Za-z]+$/.test(lastName)) {
+    document.getElementById("lastNameError").textContent = "Nom invalide.";
+    valid = false;
+  }
+  if (!firstName || !/^[A-Za-z]+$/.test(firstName)) {
+    document.getElementById("firstNameError").textContent = "Prénom invalide.";
+    valid = false;
+  }
+  if (!course) {
+    document.getElementById("courseError").textContent = "Course obligatoire.";
+    valid = false;
+  }
+
+  if (!valid) return false;
+
+  const table = document.getElementById("attendanceTable").getElementsByTagName('tbody')[0];
+  const newRow = table.insertRow();
+  newRow.innerHTML = `
+    <td>${studentID}</td>
+    <td>${lastName} ${firstName}</td>
+    <td>${course}</td>
+    <td><input type="checkbox" class="present"></td>
+    <td><input type="checkbox" class="participation"></td>
+    <td contenteditable="true"></td>
+  `;
+
+  document.getElementById("studentForm").reset();
+}
+
+// Met à jour les messages et couleurs sans écraser le texte que l'utilisateur écrit
+function updateMessages() {
+  const table = document.getElementById("attendanceTable");
+  for (let i = 1; i < table.rows.length; i++) {
+    const row = table.rows[i];
+    const present = row.querySelector(".present").checked;
+    const participation = row.querySelector(".participation").checked;
+    const messageCell = row.cells[5];
+
+    // Change seulement la couleur selon les cases cochées
+    if (present && participation) {
+      row.style.backgroundColor = "#c8e6c9"; // vert
+    } else if (!present && participation) {
+      row.style.backgroundColor = "#fff9c4"; // jaune
+    } else if (!present && !participation) {
+      row.style.backgroundColor = "#ffcdd2"; // rouge
+    } else {
+      row.style.backgroundColor = ""; // couleur normale
+    }
+  }
+}
+</script>
+
+</body>
+</html>
