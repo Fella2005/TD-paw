@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Gestion des étudiants - Advanced Web Programming</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Attendance List</a></li>
+    <li><a href="#">Add Student</a></li>
+    <li><a href="#">Reports</a></li>
+    <li><a href="#">Logout</a></li>
+  </ul>
+</nav>
+
+<h2>Tableau de Présence</h2>
+<table id="attendanceTable">
+  <thead>
+    <tr>
+      <th>Student ID</th>
+      <th>Last Name & First Name</th>
+      <th>Course</th>
+      <th>S1</th><th>P1</th>
+      <th>S2</th><th>P2</th>
+      <th>S3</th><th>P3</th>
+      <th>S4</th><th>P4</th>
+      <th>S5</th><th>P5</th>
+      <th>S6</th><th>P6</th>
+      <th>Absences</th>
+      <th>Participation</th>
+      <th>Message</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<button onclick="updateTable()">Mettre à jour Messages</button>
+<hr>
+
+<h2>Ajouter un étudiant</h2>
+<form id="studentForm" onsubmit="return addStudent(event)">
+  <label>Student ID: <input type="text" id="studentID"></label>
+  <div id="idError" class="error"></div><br>
+  <label>Last Name: <input type="text" id="lastName"></label>
+  <div id="lastNameError" class="error"></div><br>
+  <label>First Name: <input type="text" id="firstName"></label>
+  <div id="firstNameError" class="error"></div><br>
+  <label>Email: <input type="email" id="email"></label>
+  <div id="emailError" class="error"></div><br>
+  <label>Course: <input type="text" id="course"></label>
+  <div id="courseError" class="error"></div><br>
+  <button type="submit">Ajouter l’étudiant</button>
+</form>
+
+<script src="script.js"></script>
+</body>
+</html>
